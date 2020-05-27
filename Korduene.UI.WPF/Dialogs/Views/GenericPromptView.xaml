@@ -1,0 +1,34 @@
+﻿<Window x:Class="Korduene.UI.WPF.Dialogs.Views.GenericPromptView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Korduene.UI.WPF.Dialogs.Views"
+        xmlns:viewmodels="clr-namespace:Korduene.UI.WPF.Dialogs.ViewModels" 
+        xmlns:converters="clr-namespace:Korduene.UI.WPF.Converters"
+        mc:Ignorable="d"
+        SizeToContent="Height"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        FocusManager.FocusedElement="{Binding ElementName=txtVal}"
+        Title="{Binding Title}" Height="auto" Width="250">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <TextBox x:Name="txtVal" Text="{Binding Data.Value}" Grid.Column="1" Grid.Row="1" Margin="1" />
+        </Grid>
+
+        <Separator Grid.Row="1" Margin="1,5" />
+        <Grid Grid.Row="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="OK" Margin="5" Padding="10,0" IsDefault="True" Click="Ok_Click" />
+                <Button Content="Cancel" Margin="5,5,1,5" Padding="10,0" IsCancel="True" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

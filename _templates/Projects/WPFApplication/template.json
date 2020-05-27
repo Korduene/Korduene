@@ -1,0 +1,15 @@
+﻿{
+  "Name": "WPF Application",
+  "DefaultName": "WpfApp",
+  "Language": "C#",
+  "MainFile": "ProjectName.csproj",
+  "ProjectTypeGuid": "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}",
+  "Icon": "CSWPFApplication",
+  "Files": [
+    "App.xaml",
+    "App.xaml.cs",
+    "IgnoredNamespaces.txt",
+    "MainWindow.xaml",
+    "MainWindow.xaml.cs"
+  ]
+}

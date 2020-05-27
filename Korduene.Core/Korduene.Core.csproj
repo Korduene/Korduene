@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Korduene</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Build" Version="16.5.0" />
+    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="16.5.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.7.0-1.final" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Features" Version="3.7.0-1.final" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.7.0-1.final" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.7.0-1.final" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="3.7.0-1.final" />
+    <PackageReference Include="AvalonEdit" Version="6.0.1" />
+    <PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="5.0.0-preview.4.20251.6" />
+    <PackageReference Include="Microsoft.Dotnet.Wpf.ProjectTemplates" Version="3.0.0-preview3-27504-2" />
+    <PackageReference Include="NuGet.Build.Tasks" Version="5.7.0-preview.1.6592" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Korduene.Common\Korduene.Common.csproj" />
+    <ProjectReference Include="..\Korduene.Graphing.CS\Korduene.Graphing.CS.csproj" />
+    <ProjectReference Include="..\Korduene.Graphing\Korduene.Graphing.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\_submodules\netsdk\src\Cli\Microsoft.DotNet.Cli.Sln.Internal\SlnFile.cs" Link="DotNetSdk\Microsoft.DotNet.Cli.Sln.Internal\SlnFile.cs" />
+    <Compile Include="..\_submodules\netsdk\src\Cli\Microsoft.DotNet.Cli.Sln.Internal\FileManipulation\FileUtil.cs" Link="DotNetSdk\Microsoft.DotNet.Cli.Sln.Internal\FileManipulation\FileUtil.cs" />
+    <Compile Include="..\_submodules\netsdk\src\Cli\Microsoft.DotNet.Cli.Utils\PathUtility.cs" Link="DotNetSdk\Microsoft.DotNet.Cli.Utils\PathUtility.cs" />
+    <Compile Include="..\_submodules\netsdk\src\Cli\Microsoft.DotNet.Cli.Utils\GracefulException.cs" Link="DotNetSdk\Microsoft.DotNet.Cli.Utils\GracefulException.cs" />
+    <Compile Include="..\_submodules\netsdk\src\Cli\Microsoft.DotNet.Cli.Utils\ExceptionExtensions.cs" Link="DotNetSdk\Microsoft.DotNet.Cli.Utils\ExceptionExtensions.cs" />
+    <Compile Include="..\_submodules\netsdk\src\Cli\Microsoft.DotNet.Cli.Utils\Reporter.cs" Link="DotNetSdk\Microsoft.DotNet.Cli.Utils\Reporter.cs" />
+    <Compile Include="..\_submodules\netsdk\src\Cli\Microsoft.DotNet.Cli.Utils\IReporter.cs" Link="DotNetSdk\Microsoft.DotNet.Cli.Utils\IReporter.cs" />
+    <Compile Include="..\_submodules\netsdk\src\Cli\Microsoft.DotNet.Cli.Utils\AnsiConsole.cs" Link="DotNetSdk\Microsoft.DotNet.Cli.Utils\AnsiConsole.cs" />
+    <Compile Include="..\_submodules\netsdk\src\Cli\Microsoft.DotNet.Cli.Utils\AnsiColorExtensions.cs" Link="DotNetSdk\Microsoft.DotNet.Cli.Utils\AnsiColorExtensions.cs" />
+    <Compile Include="..\_submodules\netsdk\src\Cli\Microsoft.DotNet.Cli.Utils\CommandContext.cs" Link="DotNetSdk\Microsoft.DotNet.Cli.Utils\CommandContext.cs" />
+    <Compile Include="..\_submodules\netsdk\src\Cli\Microsoft.DotNet.Cli.Utils\Env.cs" Link="DotNetSdk\Microsoft.DotNet.Cli.Utils\Env.cs" />
+    <Compile Include="..\_submodules\netsdk\src\Cli\Microsoft.DotNet.Cli.Utils\EnvironmentProvider.cs" Link="DotNetSdk\Microsoft.DotNet.Cli.Utils\EnvironmentProvider.cs" />
+    <Compile Include="..\_submodules\netsdk\src\Cli\Microsoft.DotNet.Cli.Utils\IEnvironmentProvider.cs" Link="DotNetSdk\Microsoft.DotNet.Cli.Utils\IEnvironmentProvider.cs" />
+    <Compile Include="..\_submodules\netsdk\src\Cli\Microsoft.DotNet.Cli.Utils\Extensions\CollectionsExtensions.cs" Link="DotNetSdk\Microsoft.DotNet.Cli.Utils\Extensions\CollectionsExtensions.cs" />
+  </ItemGroup>
+
+</Project>

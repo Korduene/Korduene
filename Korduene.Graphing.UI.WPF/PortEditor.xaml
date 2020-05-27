@@ -1,0 +1,59 @@
+﻿<ContentPresenter x:Class="Korduene.Graphing.UI.WPF.PortEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Korduene.Graphing.UI.WPF"
+             mc:Ignorable="d" 
+             xmlns:templateselectors="clr-namespace:Korduene.Graphing.UI.WPF.DataTemplateSelectors"
+             xmlns:cc="clr-namespace:Korduene.Graphing.UI.WPF.CustomControls"
+             ContentTemplateSelector="{DynamicResource PortEditorDataTemplateSelector}"
+             d:DesignHeight="50" d:DesignWidth="200">
+    <ContentPresenter.Resources>
+        <templateselectors:PortEditorDataTemplateSelector x:Key="PortEditorDataTemplateSelector" />
+
+        <DataTemplate  x:Key="emptyTemplate">
+            <Grid />
+        </DataTemplate>
+        
+        <DataTemplate x:Key="stringEditor">
+            <cc:PortTextBox Text="{Binding Value}">
+
+            </cc:PortTextBox>
+        </DataTemplate>
+
+        <DataTemplate x:Key="intEditor">
+            <cc:Int32TextBox Text="{Binding Value}" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="longEditor">
+            <cc:Int32TextBox Text="{Binding Value}" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="doubleEditor">
+            <cc:DoubleTextBox Text="{Binding Value, StringFormat='##.##'}" />
+        </DataTemplate>
+        
+        <DataTemplate x:Key="floatEditor">
+            <cc:SingleTextBox Text="{Binding Value, StringFormat='##.##'}" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="decimalEditor">
+            <cc:DecimalTextBox Text="{Binding Value, StringFormat='##.##'}" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="byteEditor">
+            <cc:ByteTextBox Text="{Binding Value}" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="charEditor">
+            <cc:CharTextBox Text="{Binding Value}" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="boolEditor">
+            <cc:CheckBox IsChecked="{Binding Value}"></cc:CheckBox>
+        </DataTemplate>
+
+    </ContentPresenter.Resources>
+
+</ContentPresenter>

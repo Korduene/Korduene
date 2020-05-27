@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AvalonEdit" Version="6.0.1" />
+    <PackageReference Include="Dirkster.AvalonDock" Version="4.20.0" />
+    <PackageReference Include="Dirkster.AvalonDock.Themes.VS2013" Version="4.20.0" />
+    <PackageReference Include="ICSharpCode.WpfDesigner" Version="8.0.175" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Korduene.Resources\Korduene.Resources.csproj" />
+    <ProjectReference Include="..\Korduene.UI.WPF\Korduene.UI.WPF.csproj" />
+  </ItemGroup>
+
+  <Target Name="CopyTemplateFiles" AfterTargets="PostBuildEvent">
+    <MakeDir Directories="$(OutDir)Templates" />
+    <Exec Command="XCOPY /E /Y $(SolutionDir)_templates $(TargetDir)Templates" />
+  </Target>
+
+</Project>

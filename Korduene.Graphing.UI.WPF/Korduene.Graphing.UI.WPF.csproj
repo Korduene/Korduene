@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Korduene.Core\Korduene.Core.csproj" />
+    <ProjectReference Include="..\Korduene.Graphing\Korduene.Graphing.csproj" />
+    <ProjectReference Include="..\Korduene.Resources\Korduene.Resources.csproj" />
+  </ItemGroup>
+
+</Project>

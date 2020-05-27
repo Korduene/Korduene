@@ -1,0 +1,162 @@
+﻿<Window x:Class="Korduene.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Korduene"
+        xmlns:avalonDock="https://github.com/Dirkster99/AvalonDock"
+        xmlns:datetemplateselectors="clr-namespace:Korduene.UI.WPF.DateTemplateSelectors;assembly=Korduene.UI.WPF" 
+        xmlns:globalcommands="clr-namespace:Korduene.GlobalCommands;assembly=Korduene.Core" 
+        xmlns:converters="clr-namespace:Korduene.UI.WPF.Converters;assembly=Korduene.UI.WPF"
+        mc:Ignorable="d"
+        UseLayoutRounding="True"
+        Title="Korduene" Height="450" Width="800">
+    <Window.InputBindings>
+        <KeyBinding Key="F6" Command="{Binding BuildSolutionCommand}" />
+        <KeyBinding Key="F5" Command="{Binding StartAppCommand}" />
+        <KeyBinding Modifiers="Ctrl" Key="S" Command="{Binding SaveCommand}" />
+        <KeyBinding Modifiers="Ctrl+Shift" Key="S" Command="{Binding SaveAllCommand}" />
+    </Window.InputBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" IsMainMenu="True">
+            <MenuItem Header="File">
+                <MenuItem Icon="{DynamicResource NewFileCollection_16x}" Header="New Solution" Command="{Binding NewSolutionCommand}" />
+                <MenuItem Icon="{DynamicResource OpenFileFromProject_16x}" Header="Open Solution" Command="{Binding OpenSolutionCommand}" />
+                <Separator />
+                <MenuItem Header="Exit" Command="{Binding ExitAppCommand}" InputGestureText="Alt+F4" />
+                <!--<MenuItem Icon="{DynamicResource NewFile_16x}" Header="New" Command="{Binding NewFileCommand}" />
+                <Separator />-->
+            </MenuItem>
+            <MenuItem Header="View">
+                <MenuItem Icon="{DynamicResource Application_16x}" Header="Solution Explorer" Command="{Binding ViewSolutionExplorerCommand}" />
+                <MenuItem Icon="{DynamicResource Property_16x}" Header="Properties" Command="{Binding ViewPropertiesCommand}" />
+                <MenuItem Icon="{DynamicResource Toolbox_16x}" Header="ToolBox" Command="{Binding ViewToolBoxCommand}" />
+                <MenuItem Icon="{DynamicResource Output_16x}" Header="Output" Command="{Binding ViewOutputCommand}" />
+            </MenuItem>
+            <MenuItem Header="Solution">
+                <MenuItem Header="Build" Icon="{DynamicResource BuildSolution_16x}" InputGestureText="F6" Command="{x:Static globalcommands:SolutionCommands.BuildCommand}" />
+                <MenuItem Header="Rebuild" Command="{x:Static globalcommands:SolutionCommands.RebuildCommand}" />
+                <MenuItem Header="Clean" Icon="{DynamicResource CleanData_16x}" Command="{x:Static globalcommands:SolutionCommands.CleanCommand}" />
+                <Separator />
+                <MenuItem Header="Restore Nuget Packages" Icon="{DynamicResource RestoreMTR_16x}" Command="{x:Static globalcommands:SolutionCommands.RestoreCommand}" />
+                <Separator />
+                <MenuItem Header="Publish" Icon="{DynamicResource PublishAllWebsite_16x}" Command="{x:Static globalcommands:SolutionCommands.PublishCommand}" />
+            </MenuItem>
+            <MenuItem Header="Project">
+                <!--<MenuItem Icon="{DynamicResource BuildSolution_16x}" Header="Build" InputGestureText="F6" Command="{Binding BuildSolutionCommand}" />
+                <MenuItem Header="Rebuild" Command="{Binding RebuildSolutionCommand}" />
+                <MenuItem Icon="{DynamicResource CleanData_16x}" Header="Clean" Command="{Binding CleanSolutionCommand}" />
+                <Separator />
+                <MenuItem Icon="{DynamicResource RestoreMTR_16x}" Header="Restore Nuget Packages" Command="{Binding RestoreNugetPackagesCommand}" />
+                <Separator />
+                <MenuItem Icon="{DynamicResource PublishAllWebsite_16x}" Header="Publish" Command="{Binding PublishSolutionCommand}" />-->
+            </MenuItem>
+            <!--<MenuItem Header="Debug">
+                <MenuItem Icon="{DynamicResource Run_16x}" Header="Start Debugging" InputGestureText="F5" Command="{Binding StartDebugCommand}" />
+                <MenuItem Icon="{DynamicResource StartWithoutDebug_16x}" Header="Start Without Debugging" InputGestureText="Ctrl+F5" />
+            </MenuItem>-->
+            <MenuItem Header="Help">
+                <MenuItem Icon="{DynamicResource StatusHelp_16x}" Header="Help" Command="{Binding HelpCommand}" />
+                <MenuItem Icon="{DynamicResource StatusInformation_16x}" Header="About" Command="{Binding AboutCommand}" />
+            </MenuItem>
+        </Menu>
+        <ToolBarTray Grid.Row="1">
+            <ToolBar>
+                <Button Content="{DynamicResource NewFileCollection_16x}" Command="{Binding NewSolutionCommand}" />
+                <Button Content="{DynamicResource OpenFileFromProject_16x}" Command="{Binding OpenSolutionCommand}" />
+                <Separator />
+                <Button Content="{DynamicResource NewFile_16x}" Command="{x:Static globalcommands:SolutionCommands.NewFileCommand}" ToolTip="New File (Ctrl+N)" />
+                <Button Content="{DynamicResource Save_16x}" Command="{Binding SaveCommand}" ToolTip="Save (Ctrl+S)" />
+                <Button Content="{DynamicResource SaveAll_16x}" Command="{Binding SaveAllCommand}" ToolTip="Save All (Ctrl+Shift+S)" />
+                <Separator />
+                <ComboBox MinWidth="60" ItemsSource="{Binding Current.Configurations}" SelectedItem="{Binding Current.SelectedConfiguration}" />
+                <ComboBox MinWidth="70" ItemsSource="{Binding Current.Platforms}" SelectedItem="{Binding Current.SelectedPlatform}" />
+                <ComboBox MinWidth="120" ItemsSource="{Binding Current.Projects}" DisplayMemberPath="Name" SelectedItem="{Binding Current.SelectedProject}" />
+                <Button Content="{DynamicResource Run_16x}" Command="{Binding StartAppCommand}" ToolTip="Start (F5)" />
+            </ToolBar>
+        </ToolBarTray>
+
+
+        <avalonDock:DockingManager x:Name="dockMgr" Grid.Row="2" DocumentsSource="{Binding OpenDocuments}" AnchorablesSource="{Binding ToolWindows, Mode=TwoWay}" AllowMixedOrientation="True" ActiveContentChanged="dockMgr_ActiveContentChanged">
+            <avalonDock:DockingManager.LayoutItemContainerStyle>
+                <Style TargetType="{x:Type avalonDock:LayoutItem}">
+                    <Setter Property="ToolTip" Value="{Binding Model.FilePath}" />
+                    <Setter Property="IsActive" Value="{Binding Model.IsActive}" />
+                    <Setter Property="IsSelected" Value="{Binding Model.IsSelected}" />
+                    <Setter Property="ContentId" Value="{Binding Model.ContentId}" />
+                    <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}" />
+                    <Setter Property="CloseAllCommand" Value="{Binding Model.CloseAllCommand}" />
+                    <Setter Property="CloseAllButThisCommand" Value="{Binding Model.CloseAllButThisCommand}" />
+                </Style>
+            </avalonDock:DockingManager.LayoutItemContainerStyle>
+            <avalonDock:DockingManager.Theme>
+                <avalonDock:Vs2013LightTheme />
+            </avalonDock:DockingManager.Theme>
+
+            <avalonDock:DockingManager.LayoutItemTemplateSelector>
+                <datetemplateselectors:LayoutItemTemplateSelector />
+            </avalonDock:DockingManager.LayoutItemTemplateSelector>
+
+            <avalonDock:DockingManager.DocumentTitleTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Content.Name}" />
+                </DataTemplate>
+            </avalonDock:DockingManager.DocumentTitleTemplate>
+            
+            <avalonDock:DockingManager.DocumentHeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Content.Name}" />
+                </DataTemplate>
+            </avalonDock:DockingManager.DocumentHeaderTemplate>
+
+            <avalonDock:DockingManager.AnchorableTitleTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Content.Name}" />
+                </DataTemplate>
+            </avalonDock:DockingManager.AnchorableTitleTemplate>
+
+            <avalonDock:DockingManager.AnchorableHeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Content.Name}" />
+                </DataTemplate>
+            </avalonDock:DockingManager.AnchorableHeaderTemplate>
+            
+            <avalonDock:LayoutRoot>
+                <avalonDock:LayoutPanel Orientation="Horizontal">
+
+                    <avalonDock:LayoutAnchorablePaneGroup DockWidth="200">
+                        <avalonDock:LayoutAnchorablePane>
+
+                        </avalonDock:LayoutAnchorablePane>
+                    </avalonDock:LayoutAnchorablePaneGroup>
+
+                    <avalonDock:LayoutDocumentPaneGroup>
+                        <avalonDock:LayoutDocumentPane>
+
+                        </avalonDock:LayoutDocumentPane>
+                    </avalonDock:LayoutDocumentPaneGroup>
+
+                    <avalonDock:LayoutAnchorablePaneGroup DockWidth="200">
+                        <avalonDock:LayoutAnchorablePane>
+                            
+                        </avalonDock:LayoutAnchorablePane>
+                    </avalonDock:LayoutAnchorablePaneGroup>
+                    
+                </avalonDock:LayoutPanel>
+               
+            </avalonDock:LayoutRoot>
+        </avalonDock:DockingManager>
+
+        <StatusBar Grid.Row="3">
+            
+        </StatusBar>
+        
+    </Grid>
+</Window>

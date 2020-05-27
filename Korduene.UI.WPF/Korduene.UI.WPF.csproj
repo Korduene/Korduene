@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AvalonEdit" Version="6.0.1" />
+    <PackageReference Include="Dirkster.AvalonDock" Version="4.20.0" />
+    <PackageReference Include="Dirkster.AvalonDock.Themes.VS2013" Version="4.20.0" />
+    <PackageReference Include="ICSharpCode.WpfDesigner" Version="8.0.175" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Korduene.Core\Korduene.Core.csproj" />
+    <ProjectReference Include="..\Korduene.Graphing.UI.WPF\Korduene.Graphing.UI.WPF.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Update="Dialogs\Views\GenericPromptView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Dialogs\Views\NewFileView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Documents\Views\XamlDocumentView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Page Update="Dialogs\Views\GenericPromptView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Dialogs\Views\NewFileView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Documents\Views\XamlDocumentView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ToolWindows\Views\ToolBoxView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

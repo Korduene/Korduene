@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="Korduene.Graphing.UI.WPF.CustomControls.GraphMenuItemToolTip"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Korduene.Graphing.UI.WPF.CustomControls"
+             xmlns:converters="clr-namespace:Korduene.Graphing.UI.WPF.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ContentControl Grid.Column="0" Content="{Binding TypeInfo, Converter={converters:NodeTypeToImageConverter}}" />
+            <ItemsControl Grid.Column="1" Padding="3,0,0,2" ItemsSource="{Binding TypeInfo, Mode=OneWay, Converter={converters:NodeTypeToStringConverter}}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Text}" Foreground="{Binding Foreground}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding TypeInfo, Mode=OneWay, Converter={converters:SymbolToDocumentationConverter}}" MaxWidth="500" TextWrapping="WrapWithOverflow" Visibility="{Binding Text, RelativeSource={RelativeSource Mode=Self}, Converter={converters:IsNullOrEmptyToVisibilityConverter}}" />
+        </Grid>
+        <!--<Separator Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" />-->
+        
+        <!--<TextBlock Grid.Column="1" Padding="3,0,0,2">
+            <Run Text="{Binding TypeInfo.TypeKind, Mode=OneWay, Converter={converters:StringToLowerConverter}}" Foreground="Blue" />
+            <Run Text="{Binding TypeInfo, Mode=OneWay, Converter={converters:SymbolToFullNameConverter}}" />
+        </TextBlock>-->
+    </Grid>
+</UserControl>

@@ -1,0 +1,70 @@
+﻿<Window x:Class="Korduene.UI.WPF.Dialogs.Views.NewProjectView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Korduene.UI.WPF.Dialogs.Views"
+        xmlns:viewmodels="clr-namespace:Korduene.UI.WPF.Dialogs.ViewModels" 
+        xmlns:converters="clr-namespace:Korduene.UI.WPF.Converters"
+        mc:Ignorable="d"
+        SizeToContent="Height"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        Title="New Project" Height="auto" Width="400">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                <ListBox ItemsSource="{Binding Current.ProjectTemplates}" SelectedItem="{Binding SelectedTemplate}" Height="150" Margin="0,2">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="32" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <!--<Image Source="{Binding Icon}" Grid.Column="0" Height="32" Width="32" />-->
+                                <ContentControl Grid.Column="0" Content="{Binding ., Converter={converters:ProjectTemplateToImageConverter}}" Height="32" Width="32">
+                                    <ContentControl.RenderTransform>
+                                        <ScaleTransform ScaleX="2" ScaleY="2" CenterX="16" CenterY="16" />
+                                    </ContentControl.RenderTransform>
+                                </ContentControl>
+                                <TextBlock Grid.Column="1" Text="{Binding Name}" Margin="5,0" VerticalAlignment="Center" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+
+            <TextBlock Text="Name" Grid.Column="0" Grid.Row="1" Margin="1" />
+            <TextBox Text="{Binding SelectedTemplate.ChosenName}" Grid.Column="1" Grid.Row="1" Margin="1" />
+
+            <TextBlock Text="Directory" Grid.Column="0" Grid.Row="2" Margin="1" />
+            <TextBox Text="{Binding Directory}" Grid.Column="1" Grid.Row="2" Margin="1" />
+
+        </Grid>
+
+        <Separator Grid.Row="1" Margin="1,5" />
+        <Grid Grid.Row="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="OK" Margin="5" Padding="10,0" IsDefault="True" Click="Ok_Click" />
+                <Button Content="Cancel" Margin="5,5,1,5" Padding="10,0" IsCancel="True" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

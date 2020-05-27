@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Keywords>
+        <Keyword>kc</Keyword>
+        <Keyword>class</Keyword>
+        <Keyword>notify</Keyword>
+      </Keywords>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>kclass</Title>
+      <Author>Rebin</Author>
+      <Description>Generic class that implements INotifyPropertyChanged</Description>
+      <HelpUrl>http://www.korduene.com/</HelpUrl>
+      <Shortcut>kc</Shortcut>
+    </Header>
+    <Snippet>
+      <Imports>
+        <Import>
+          <Namespace>System.ComponentModel</Namespace>
+        </Import>
+		<Import>
+          <Namespace>System.Diagnostics</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Collections.ObjectModel</Namespace>
+        </Import>
+        <Import>
+          <Namespace>System.Runtime.CompilerServices</Namespace>
+        </Import>
+      </Imports>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>name</ID>
+          <ToolTip>class name</ToolTip>
+          <Default>class1</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>comment</ID>
+          <ToolTip>comment</ToolTip>
+          <Default>comment</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$" Kind="type decl"><![CDATA[/// <summary>
+/// $comment$
+/// </summary>
+/// <seealso cref="INotifyPropertyChanged" />
+[Description("$comment$")]
+[DisplayName("$name$")]
+[DebuggerDisplay("$name$")]
+public class $name$ : INotifyPropertyChanged
+{
+        #region [Events]
+        
+        /// <summary>
+        /// Occurs when a property value changes.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
+        #region [Private Objects]
+
+        #endregion
+
+        #region [Public Properties]
+
+        $selected$$end$
+
+        #endregion
+		
+		#region [Commands]
+		
+		#endregion
+
+        #region [Constructors]
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="$name$"/> class.
+        /// </summary>
+        public $name$()
+        {
+        }
+
+        #endregion
+
+        #region [Public Methods]
+
+        #endregion
+
+        #region [Private Methods]
+
+        #endregion
+
+        /// <summary>
+        /// Called when public properties changed.
+        /// </summary>
+        /// <param name="name">The name of the property.</param>
+        public void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+}]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
