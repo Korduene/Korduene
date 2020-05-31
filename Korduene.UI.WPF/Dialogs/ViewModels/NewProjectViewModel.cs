@@ -98,22 +98,29 @@ namespace Korduene.UI.WPF.Dialogs.ViewModels
                 return;
             }
 
-            var dirs = new DirectoryInfo(Directory).GetDirectories().Select(x => x.Name);
-            var count = 0;
-            var name = SelectedTemplate.DefaultName;
-
-            while (true)
+            if (System.IO.Directory.Exists(Directory))
             {
-                count++;
-                name = SelectedTemplate.DefaultName + count.ToString();
+                var dirs = new DirectoryInfo(Directory).GetDirectories().Select(x => x.Name);
+                var count = 0;
+                var name = SelectedTemplate.DefaultName;
 
-                if (!dirs.Contains(name))
+                while (true)
                 {
-                    break;
-                }
-            }
+                    count++;
+                    name = SelectedTemplate.DefaultName + count.ToString();
 
-            SelectedTemplate.ChosenName = name;
+                    if (!dirs.Contains(name))
+                    {
+                        break;
+                    }
+                }
+
+                SelectedTemplate.ChosenName = name;
+            }
+            else
+            {
+                SelectedTemplate.ChosenName = SelectedTemplate.DefaultName;
+            }
         }
 
         #endregion
