@@ -18,9 +18,10 @@
     <ProjectReference Include="..\Korduene.UI.WPF\Korduene.UI.WPF.csproj" />
   </ItemGroup>
 
-  <Target Name="CopyTemplateFiles" AfterTargets="PostBuildEvent">
+  <Target Name="CopyFiles" AfterTargets="PostBuildEvent">
     <MakeDir Directories="$(OutDir)Templates" />
     <Exec Command="XCOPY /E /Y $(SolutionDir)_templates $(TargetDir)Templates" />
+    <Copy SourceFiles="$(SolutionDir)\layout.xml" DestinationFolder="$(OutDir)" Condition="Exists('$(OutDir)layout.xml') == false"></Copy>
   </Target>
 
 </Project>
