@@ -23,6 +23,8 @@ namespace Korduene
         {
             GetSdkPath();
 
+            var existingVariables = Environment.GetEnvironmentVariables();
+
             var variables = new Dictionary<string, string>()
             {
                    { "MSBuildToolsPath", Path.Combine(SdkPath, SdkVersion) },
@@ -37,7 +39,10 @@ namespace Korduene
 
             foreach (var item in variables)
             {
-                Environment.SetEnvironmentVariable(item.Key, item.Value, EnvironmentVariableTarget.User);
+                if (!existingVariables.Contains(item.Key))
+                {
+                    Environment.SetEnvironmentVariable(item.Key, item.Value, EnvironmentVariableTarget.User);
+                }
             }
 
             Microsoft.Build.Evaluation.ProjectCollection.GlobalProjectCollection.AddToolset(new Microsoft.Build.Evaluation.Toolset("Current", Path.Combine(DotNetInfo.SdkPath, DotNetInfo.SdkVersion), Microsoft.Build.Evaluation.ProjectCollection.GlobalProjectCollection, Path.Combine(SdkPath, SdkVersion)));
