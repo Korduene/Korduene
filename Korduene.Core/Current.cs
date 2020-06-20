@@ -408,6 +408,8 @@ namespace Korduene
                 var msbuild = Microsoft.Build.Execution.BuildManager.DefaultBuildManager;
                 var projs = Microsoft.Build.Evaluation.ProjectCollection.GlobalProjectCollection;
 
+                projs.AddToolset(new Microsoft.Build.Evaluation.Toolset("Current", Path.Combine(DotNetInfo.SdkPath, DotNetInfo.SdkVersion), projs, Path.Combine(DotNetInfo.SdkPath, DotNetInfo.SdkVersion)));
+
                 var globalProperties = new Dictionary<string, string>()
                 {
                    { "Configuration" , SelectedConfiguration},

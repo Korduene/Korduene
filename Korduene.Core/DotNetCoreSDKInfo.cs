@@ -19,6 +19,30 @@ namespace Korduene
             GetPacksPath();
         }
 
+        public static void SetEnvironmentVariables()
+        {
+            GetSdkPath();
+
+            var variables = new Dictionary<string, string>()
+            {
+                   { "MSBuildToolsPath", Path.Combine(SdkPath, SdkVersion) },
+                   { "MSBuildBinPath" , Path.Combine(SdkPath, SdkVersion) },
+                   { "MSBuildStartupDirectory" , Path.Combine(SdkPath, SdkVersion) },
+                   { "MSBuildExtensionsPath32" , Path.Combine(SdkPath, SdkVersion) },
+                   { "MSBuildExtensionsPath64" , Path.Combine(SdkPath, SdkVersion) },
+                   { "MSBuildExtensionsPath" , Path.Combine(SdkPath, SdkVersion) },
+                   { "MSBuildSDKsPath" , Path.Combine(SdkPath, SdkVersion, "SDKs") },
+                   { "RoslynTargetsPath" , Path.Combine(SdkPath, SdkVersion, "Roslyn") }
+            };
+
+            foreach (var item in variables)
+            {
+                Environment.SetEnvironmentVariable(item.Key, item.Value, EnvironmentVariableTarget.User);
+            }
+
+            Microsoft.Build.Evaluation.ProjectCollection.GlobalProjectCollection.AddToolset(new Microsoft.Build.Evaluation.Toolset("Current", Path.Combine(DotNetInfo.SdkPath, DotNetInfo.SdkVersion), Microsoft.Build.Evaluation.ProjectCollection.GlobalProjectCollection, Path.Combine(SdkPath, SdkVersion)));
+        }
+
         public static string GetPackPath(string sdk)
         {
             var name = GetPackDirBySDK(sdk);

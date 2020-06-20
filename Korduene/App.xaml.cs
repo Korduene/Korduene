@@ -14,6 +14,8 @@ namespace Korduene
 
             Korduene.Current.Instance.UIServices = UIServices.Instance;
 
+            DotNetInfo.SetEnvironmentVariables();
+
             base.OnStartup(e);
         }
     }
