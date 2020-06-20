@@ -14,8 +14,10 @@ You need to clone the repository and build it.
 * .NET 5 SDK
 
 ### Running Korduene
-Build the solution and copy "C:\Program Files\dotnet\sdk\5.0^" to "Korduene\bin\Debug\net5.0".
-This is necessary because it cannot resolve the SDK at the moment and I don't have a working solution for this.
+Build the solution and run Korduene.
+
+* It may fail to load projects the first time running Korduene, restart visual studio and you should be good to go.
+* This is due to intial setting of environment variables [see issue #2](https://github.com/rebinf/Korduene/issues/2]).
 
 ## Issues
 Submit an issue if there is anything, keep in mind I may not be able to respond to issues immediately.
