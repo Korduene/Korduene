@@ -20,7 +20,7 @@
 
   <Target Name="CopyFiles" AfterTargets="PostBuildEvent">
     <MakeDir Directories="$(OutDir)Templates" />
-    <Exec Command="XCOPY /E /Y $(SolutionDir)_templates $(TargetDir)Templates" />
+    <Exec Command="XCOPY /E /Y &quot;$(SolutionDir)_templates&quot; &quot;$(TargetDir)Templates&quot;" />
     <Copy SourceFiles="$(SolutionDir)\layout.xml" DestinationFolder="$(OutDir)" Condition="Exists('$(OutDir)layout.xml') == false"></Copy>
   </Target>
 
