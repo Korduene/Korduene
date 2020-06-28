@@ -46,9 +46,9 @@ namespace Korduene.UI.WPF.ToolWindows.Views
             {
                 _tool = new ICSharpCode.WpfDesign.Designer.Services.CreateComponentTool(item.Type);
 
-                if (Current.Instance.ActiveDocument is XamlDocument designerDocument)
+                if (Current.Instance.ActiveDocument is XamlDocument designerDocument && designerDocument.DesignContext is ICSharpCode.WpfDesign.DesignContext context)
                 {
-                    (designerDocument.DesignContext as ICSharpCode.WpfDesign.DesignContext).Services.Tool.CurrentTool = _tool;
+                    context.Services.Tool.CurrentTool = _tool;
                 }
             }
         }

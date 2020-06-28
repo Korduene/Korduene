@@ -43,7 +43,7 @@ namespace Korduene.UI.WPF.Documents.Views
             var doc = DataContext as XamlDocument;
             var menu = new Graphing.UI.WPF.GraphContextMenu();
             doc.AvalonDocument.TextChanged += AvalonXamlDocument_TextChanged;
-            //doc.PropertyChanged += Doc_PropertyChanged;
+            doc.PropertyChanged += Doc_PropertyChanged;
         }
 
         private void DesignerDocumentView_Loaded(object sender, RoutedEventArgs e)
@@ -60,13 +60,13 @@ namespace Korduene.UI.WPF.Documents.Views
             LoadDesigner();
         }
 
-        //private void Doc_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        //{
-        //    if (e.PropertyName == nameof(CSDesignerDocument.AvalonXamlDocument))
-        //    {
-        //        LoadDesigner();
-        //    }
-        //}
+        private void Doc_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(XamlDocument.AvalonDocument))
+            {
+                LoadDesigner();
+            }
+        }
 
         private void LoadDesigner()
         {
@@ -99,10 +99,13 @@ namespace Korduene.UI.WPF.Documents.Views
                         undoService.UndoStackChanged -= UndoService_UndoStackChanged;
                         undoService.UndoStackChanged += UndoService_UndoStackChanged;
                     }
+
+                    (DataContext as XamlDocument).DesignerLoadFailed = false;
                 }
             }
             catch (Exception ex)
             {
+                (DataContext as XamlDocument).DesignerLoadFailed = true;
             }
         }
 

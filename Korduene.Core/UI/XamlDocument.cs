@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace Korduene.UI
 {
@@ -26,6 +28,7 @@ namespace Korduene.UI
         private bool _isCodeActive;
         private bool _isDesignerActive;
         private object _designContext;
+        private bool _designerLoadFailed;
 
         #endregion
 
@@ -109,6 +112,19 @@ namespace Korduene.UI
             }
         }
 
+        public bool DesignerLoadFailed
+        {
+            get { return _designerLoadFailed; }
+            set
+            {
+                if (_designerLoadFailed != value)
+                {
+                    _designerLoadFailed = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         #endregion
 
         #region [Commands]
@@ -145,6 +161,12 @@ namespace Korduene.UI
         {
             File.WriteAllText(this.FilePath, this.AvalonDocument.Text);
             this.IsSaved = true;
+        }
+
+        public override void Reload()
+        {
+            OnPropertyChanged(nameof(AvalonDocument));
+            base.Reload();
         }
 
         #endregion

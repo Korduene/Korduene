@@ -10,6 +10,7 @@
             xmlns:customcontrols="clr-namespace:Korduene.UI.WPF.CustomControls"
             xmlns:korduene="clr-namespace:Korduene;assembly=Korduene.Core" 
             xmlns:designer="clr-namespace:ICSharpCode.WpfDesign.Designer;assembly=ICSharpCode.WpfDesign.Designer"
+            xmlns:converters="clr-namespace:Korduene.Graphing.UI.WPF.Converters;assembly=Korduene.Graphing.UI.WPF"
             mc:Ignorable="d"
             d:DesignHeight="450" d:DesignWidth="800">
     <TabControl TabStripPlacement="Bottom">
@@ -20,7 +21,10 @@
                     <RowDefinition Height="5" />
                     <RowDefinition Height="40*" />
                 </Grid.RowDefinitions>
-                <customcontrols:DesignSurfaceEx Grid.Row="0" x:Name="designControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                <Grid Grid.Row="0">
+                    <customcontrols:DesignSurfaceEx x:Name="designControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                    <TextBlock Text="Failed to load designer, build the solution and try again." VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Visibility="{Binding DesignerLoadFailed, Converter={converters:BoolToVisibilityConverter}}" />
+                </Grid>
                 <GridSplitter Grid.Row="1" Height="3" HorizontalAlignment="Stretch" ShowsPreview="True" />
                 <customcontrols:TextEditorEx Grid.Row="2" Document="{Binding AvalonDocument}" SyntaxHighlighting="XML" />
             </Grid>

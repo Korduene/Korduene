@@ -104,6 +104,10 @@ namespace Korduene.UI
             IsSaved = true;
         }
 
+        public virtual void Reload()
+        {
+        }
+
         #endregion
 
         public virtual void OnActivated()

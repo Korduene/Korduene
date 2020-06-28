@@ -325,6 +325,7 @@ namespace Korduene
                 {
                     IsSelected = true,
                     IsSaved = true,
+                    IsActive = true,
                     Name = document.Name
                 });
             }
@@ -334,6 +335,7 @@ namespace Korduene
                 {
                     IsSelected = true,
                     IsSaved = true,
+                    IsActive = true,
                     Name = document.Name
                 });
             }
@@ -401,6 +403,8 @@ namespace Korduene
             State = AppState.Building;
             BuildStarted?.Invoke(this, EventArgs.Empty);
 
+            var results = new List<Microsoft.Build.Execution.BuildResult>();
+
             await Task.Factory.StartNew(() =>
             {
                 ClearOutput();
@@ -442,9 +446,9 @@ namespace Korduene
                 foreach (var p in Workspace.ProjectInstances)
                 {
                     var pinstance = new Microsoft.Build.Execution.ProjectInstance(p.FullPath, globalProperties, projs.DefaultToolsVersion, projs);
-                    var request = new Microsoft.Build.Execution.BuildRequestData(pinstance, targets);
+                    var requestData = new Microsoft.Build.Execution.BuildRequestData(pinstance, targets);
 
-                    msbuild.BuildRequest(request);
+                    results.Add(msbuild.BuildRequest(requestData));
                 }
 
                 msbuild.EndBuild();
@@ -452,6 +456,7 @@ namespace Korduene
 
             State = AppState.SolutionReady;
             BuildFinished?.Invoke(this, EventArgs.Empty);
+            OnBuildFinished(results);
         }
 
         public async Task Start()
@@ -601,6 +606,14 @@ namespace Korduene
         #endregion
 
         #region [Private Methods]
+
+        private void OnBuildFinished(IEnumerable<Microsoft.Build.Execution.BuildResult> results)
+        {
+            if (results.All(x => x.OverallResult == Microsoft.Build.Execution.BuildResultCode.Success))
+            {
+                OpenDocuments.ToList().ForEach(x => x.Reload());
+            }
+        }
 
         private void MSBuildLog(string message)
         {
