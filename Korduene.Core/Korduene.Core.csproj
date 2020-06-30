@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Build" Version="16.6.0" />
     <PackageReference Include="Microsoft.Build.Tasks.Core" Version="16.6.0" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.6.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.7.0-2.final" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Features" Version="3.7.0-2.final" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.7.0-2.final" />
@@ -18,7 +19,7 @@
     <PackageReference Include="Microsoft.Dotnet.Wpf.ProjectTemplates" Version="3.0.0-preview3-27504-2" />
     <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="5.0.0-preview.3-runtime.20214.6" />
     <PackageReference Include="Microsoft.NET.HostModel" Version="5.0.0-preview.1.20120.5" />
-    <PackageReference Include="NuGet.Build.Tasks" Version="5.7.0-preview.2.6618" />
+    <PackageReference Include="NuGet.Build.Tasks" Version="5.7.0-preview.3.6653" />
   </ItemGroup>
 
   <ItemGroup>

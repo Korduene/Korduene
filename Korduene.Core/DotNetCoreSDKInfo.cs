@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -23,7 +24,7 @@ namespace Korduene
         {
             GetSdkPath();
 
-            var existingVariables = Environment.GetEnvironmentVariables();
+            var existingVariables = Environment.GetEnvironmentVariables().Cast<DictionaryEntry>().ToDictionary(x => x.Key.ToString(), x => x.Value.ToString());
 
             var variables = new Dictionary<string, string>()
             {
@@ -39,7 +40,7 @@ namespace Korduene
 
             foreach (var item in variables)
             {
-                if (!existingVariables.Contains(item.Key))
+                if (!existingVariables.Any(x => x.Key.Equals(item.Key, StringComparison.OrdinalIgnoreCase) && x.Value.Equals(item.Value, StringComparison.OrdinalIgnoreCase)))
                 {
                     Environment.SetEnvironmentVariable(item.Key, item.Value, EnvironmentVariableTarget.User);
                 }
