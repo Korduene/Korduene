@@ -38,6 +38,14 @@ namespace Korduene.Graphing
         bool IsCollection { get; set; }
 
         /// <summary>
+        /// Gets a value indicating whether this port is connected.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this port is connected; otherwise, <c>false</c>.
+        /// </value>
+        bool IsConnected { get ; }
+
+        /// <summary>
         /// The amount of accepted connections for this port.
         /// </summary>
         /// <value>

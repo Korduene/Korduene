@@ -146,6 +146,15 @@ namespace Korduene.Graphing
         }
 
         /// <summary>
+        /// Gets a value indicating whether this port is connected.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this port is connected; otherwise, <c>false</c>.
+        /// </value>
+        [JsonIgnore]
+        public bool IsConnected { get { return _connectedPorts.Count > 0; } }
+
+        /// <summary>
         /// The amount of accepted connections for this port.
         /// </summary>
         /// <value>

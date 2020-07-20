@@ -1,9 +1,13 @@
-﻿using Korduene.Graphing.Enums;
+﻿using Korduene.Graphing.CS.Utilities;
+using Korduene.Graphing.Enums;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Korduene.Graphing.CS.Nodes.Base
 {
@@ -16,95 +20,73 @@ namespace Korduene.Graphing.CS.Nodes.Base
 
         public MethodDeclerationNode()
         {
-            this.SymbolName = "void";
-            this.NodeType = Enums.NodeType.Method;
-            //this.Ports.Add(new CSPort(PortType.In, AcceptedConnections.Multiple) { IsPassThrough = true, CallParent = true });
-            //this.Ports.Add(new CSPort(PortType.Out, AcceptedConnections.Multiple) { IsPassThrough = true });
+            SymbolName = "void";
         }
 
         public override IEnumerable<SyntaxNode> GetSyntax()
         {
-            var method = SyntaxFactory.MethodDeclaration(
-            SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.VoidKeyword)),
-            SyntaxFactory.Identifier(this.Name))
-            .WithModifiers(Utilities.SyntaxHelpers.GetModifiers(Modifiers));
+            var method = SyntaxFactory.MethodDeclaration
+            (
+                SyntaxFactory.PredefinedType
+                (
+                    SyntaxFactory.Token(SyntaxKind.VoidKeyword)
+                ),
+                SyntaxFactory.Identifier(Name)
+            )
+            .WithModifiers(SyntaxHelpers.GetModifiers(Modifiers));
 
-            if (!string.IsNullOrWhiteSpace(this.Comment))
+            if (!string.IsNullOrWhiteSpace(Comment))
             {
                 method = method.WithLeadingTrivia(GetDocumentationTriviaSyntax());
             }
 
             var block = SyntaxFactory.Block();
 
-            foreach (var port in Ports.Where(x => x.PortType == PortType.Out))
+            foreach (var port in Ports.Where(x => x.PortType == Enums.PortType.Out))
             {
-                foreach (var connectedPort in port.ConnectedPorts)
+                foreach (var connectedPort in port.ConnectedPorts.Cast<CSPort>())
                 {
-                    //TODO: PORTS NEED TO DO THEIR OWN STATEMENT SYNTAXES
-
-                    if (connectedPort.ParentNode != null)
-                    {
-                        block = block.AddStatements((connectedPort as CSPort).GetStatementSyntax().ToArray());
-                    }
+                    block = block.AddStatements(connectedPort.GetStatementSyntax().ToArray());
                 }
             }
 
-            method = method.WithBody(block);
-
-            return new[] { method };
+            return new[] { method.WithBody(block) };
         }
 
         public override IEnumerable<StatementSyntax> GetStatementSyntax(CSPort sourcePort)
         {
-            var list = new List<StatementSyntax>();
+            var args = SyntaxFactory.ArgumentList();
 
-            var argumentList = SyntaxFactory.ArgumentList();
-
-            //foreach (var par in Symbol.Parameters)
+            //foreach (var par in (Symbol as IMethodSymbol).Parameters)
             //{
-            //    if (this.Ports.FirstOrDefault(x => x.Text == par.Name) is CSPort port)
+            //    if (Ports.FirstOrDefault(x => x.Text == par.Name) is CSPort port)
             //    {
-            //        if (port.ConnectedPorts.Any())
+            //        if (port.IsConnected)
             //        {
-            //            argumentList = argumentList.AddArguments(SyntaxFactory.Argument((port.ConnectedPorts.First() as CSPort).GetMemberAccessExpressionSyntax()));
+            //            args = args.AddArguments(SyntaxFactory.Argument(port.GetFirstConnectedPortMemberAccessExpressionSyntax()));
             //        }
             //        else
             //        {
-            //            argumentList = argumentList.AddArguments(SyntaxFactory.Argument(port.GetValueLiteralExpression()));
+            //            args = args.AddArguments(SyntaxFactory.Argument(port.GetValueLiteralExpression()));
             //        }
             //    }
             //}
 
-            InvocationExpressionSyntax invocation = null;
+            var invocation = SyntaxFactory.InvocationExpression(SyntaxFactory.IdentifierName(Name));
 
-            if (argumentList.Arguments.Any())
+            if (args.Arguments.Any())
             {
-                invocation = SyntaxFactory.InvocationExpression(
-                SyntaxFactory.MemberAccessExpression(
-                    SyntaxKind.SimpleMemberAccessExpression,
-                    SyntaxFactory.IdentifierName(this.Name), SyntaxFactory.IdentifierName(Symbol.Name))).WithArgumentList(argumentList);
-            }
-            else
-            {
-                invocation = SyntaxFactory.InvocationExpression(SyntaxFactory.IdentifierName(this.Name));
+                invocation = invocation.WithArgumentList(args);
             }
 
             var syntaxNode = SyntaxFactory.ExpressionStatement(invocation);
 
-            if (!string.IsNullOrWhiteSpace(this.Comment))
+            if (!string.IsNullOrWhiteSpace(Comment))
             {
-                syntaxNode = syntaxNode.WithLeadingTrivia(SyntaxFactory.Comment($"// {this.Comment}"));
+                syntaxNode = syntaxNode.WithLeadingTrivia(GetCommentSyntaxTrivia());
             }
 
-            list.Add(syntaxNode);
-
-            return list;
-        }
-
-        public void Call(INode node)
-        {
-            //TODO: IMPROVE
-            this.Ports[1].Connect(node.Ports.First(x => x.PortType == PortType.In));
+            return new[] { syntaxNode };
         }
 
         public static MethodDeclerationNode Create()

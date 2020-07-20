@@ -49,7 +49,8 @@ namespace Korduene.Graphing.CS.Nodes.Base
                     }
                     else
                     {
-                        argumentList = argumentList.AddArguments(SyntaxFactory.Argument(port.AccessSyntax()));
+                        //TODO: get values properly, instead of passing everything as strings
+                        argumentList = argumentList.AddArguments(SyntaxFactory.Argument(SyntaxFactory.LiteralExpression(SyntaxKind.DefaultLiteralExpression, SyntaxFactory.Literal(port.Value?.ToString()))));
                     }
                 }
             }

@@ -30,6 +30,8 @@ namespace Korduene.Graphing.CS.Nodes.Base
         {
             var node = new CreateInstanceNode() { SymbolName = symbolName };
 
+            node.Name = $"{node.Symbol.Name} Instance";
+
             node.Ports.Add(new CSPort(PortType.In, AcceptedConnections.One, "Create"));
             node.Ports.Add(new CSPort(PortType.Out, AcceptedConnections.One, "Get").WithProperty(RETURN_ITEM, RETURN_ITEM));
 

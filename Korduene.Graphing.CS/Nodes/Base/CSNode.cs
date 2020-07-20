@@ -105,42 +105,11 @@ namespace Korduene.Graphing.CS.Nodes.Base
             }
 
             return SyntaxFactory.ParseLeadingTrivia(comment);
+        }
 
-            //return SyntaxFactory.DocumentationCommentTrivia(
-            //        SyntaxKind.SingleLineDocumentationCommentTrivia,
-            //        SyntaxFactory.List<XmlNodeSyntax>(
-            //            new XmlNodeSyntax[]{
-            //                SyntaxFactory.XmlText()
-            //                .WithTextTokens(
-            //                    SyntaxFactory.TokenList(
-            //                        SyntaxFactory.XmlTextLiteral(
-            //                            SyntaxFactory.TriviaList(
-            //                                SyntaxFactory.DocumentationCommentExterior("///")),
-            //                            " ",
-            //                            " ",
-            //                            SyntaxFactory.TriviaList()))),
-            //                SyntaxFactory.XmlExampleElement(
-            //                    SyntaxFactory.SingletonList<XmlNodeSyntax>(
-            //                        SyntaxFactory.XmlText()
-            //                        .WithTextTokens(
-            //                            SyntaxFactory.TokenList(
-            //                                new []{
-            //                                    SyntaxFactory.XmlTextNewLine(
-            //                                        SyntaxFactory.TriviaList(),
-            //                                        "\n",
-            //                                        "\n",
-            //                                        SyntaxFactory.TriviaList()),
-            //                                    SyntaxFactory.XmlTextLiteral(
-            //                                        SyntaxFactory.TriviaList(SyntaxFactory.DocumentationCommentExterior("///")), $" {this.Comment}", $" {this.Comment}",
-            //                                        SyntaxFactory.TriviaList()), SyntaxFactory.XmlTextNewLine(SyntaxFactory.TriviaList(), "\n", "\n",
-            //                                        SyntaxFactory.TriviaList()), SyntaxFactory.XmlTextLiteral( SyntaxFactory.TriviaList(SyntaxFactory.DocumentationCommentExterior("///")), " ", " ",
-            //                                        SyntaxFactory.TriviaList())}))))
-            //                .WithStartTag(SyntaxFactory.XmlElementStartTag(SyntaxFactory.XmlName(SyntaxFactory.Identifier("summary"))))
-            //                .WithEndTag(SyntaxFactory.XmlElementEndTag(SyntaxFactory.XmlName(SyntaxFactory.Identifier("summary")))),
-
-            //                    SyntaxFactory.XmlText()
-            //                    .WithTextTokens(SyntaxFactory.TokenList(SyntaxFactory.XmlTextNewLine(SyntaxFactory.TriviaList(),
-            //                    "\n", "\n",SyntaxFactory.TriviaList())))}));
+        public virtual SyntaxTrivia GetCommentSyntaxTrivia()
+        {
+            return SyntaxFactory.Comment($"// {Comment}");
         }
 
         public virtual IEnumerable<IPort> GetParameterPorts()
