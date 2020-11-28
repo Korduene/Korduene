@@ -9,11 +9,11 @@
     <PackageReference Include="Microsoft.Build" Version="16.8.0" />
     <PackageReference Include="Microsoft.Build.Tasks.Core" Version="16.8.0" />
     <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.8.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0-5.final" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Features" Version="3.8.0-5.final" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.8.0-5.final" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.8.0-5.final" />
-    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="3.8.0-5.final" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Features" Version="3.8.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.8.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.8.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="3.8.0" />
     <PackageReference Include="AvalonEdit" Version="6.1.0-preview1" />
     <PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="5.0.0-preview.5.20278.1" />
     <PackageReference Include="Microsoft.Dotnet.Wpf.ProjectTemplates" Version="3.0.0-preview3-27504-2" />
